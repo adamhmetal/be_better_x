@@ -1,0 +1,20 @@
+##### CUSTOM
+
+# ignore folders
+.git
+.idea
+commands
+docs
+skeleton
+venv
+.venv
+__pycache__/
+target
+
+# ignore files
+.gitignore
+make_completion
+make.py
+Makefile
+README.md
+tmp/

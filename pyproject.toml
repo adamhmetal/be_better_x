@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "be-better"
+version = "1.0.0"
+description = ""
+authors = ["Adam Puza <adam.puza@gmail.com>"]
+readme = "README.md"
+packages = [{include = "be_better", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -10,7 +10,7 @@ function run_tests {
 
     echo -e "= TEST RUN: $(date) ="
 
-    pytest
+    poetry run pytest
 
     if [[ "$?" -ne 0 ]]; then
         exit_result=1

@@ -31,7 +31,7 @@ fi
 
 source infrastructure/cli/common.sh
 
-build_image
+build_image || exit 1
 
 if [ "${live_reload}" = true ]; then
     if [ "${type}" = "unit" ]; then

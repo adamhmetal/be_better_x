@@ -10,7 +10,7 @@ function run_tests {
 
     echo -e "= TEST RUN: $(date) ="
 
-    behave
+    poetry run behave
 
     if [[ "$?" -ne 0 ]]; then
         exit_result=1

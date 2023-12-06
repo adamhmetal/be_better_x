@@ -13,13 +13,7 @@ function push_image() {
 }
 
 # $1: 0=run forever with inotifywait, 1=run once and exit
-function run_unit_tests() {
+function run_tests() {
     echo "Running unit tests"
-    COMMIT_ID=$COMMIT_ID docker-compose -f infrastructure/docker/docker-compose.yml run -e LIVE_RELOAD=$1 --rm --service-ports --entrypoint /vol/app/tests/cli/run_unit_tests.sh app
-}
-
-# $1: 0=run forever with inotifywait, 1=run once and exit
-function run_integration_tests() {
-    echo "Running integration tests"
-    COMMIT_ID=$COMMIT_ID docker-compose -f infrastructure/docker/docker-compose.yml run -e LIVE_RELOAD=$1 --rm --service-ports --entrypoint /vol/app/tests/cli/run_integration_tests.sh app
+    COMMIT_ID=$COMMIT_ID docker-compose -f infrastructure/docker/docker-compose.yml run -e LIVE_RELOAD=$1 --rm --service-ports --entrypoint /vol/app/tests/cli/run_tests.sh app
 }

@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
+cd /vol/app/ || exit
+
 red='\033[0;31m' # Color red
 green='\033[0;32m' # Color green
 no_color='\033[0m' # Color reset (no color)
 
-source tests/cli/common.sh
+DEBUG_LOG="/tmp/debug.log"
+
+function print_debug_info {
+    if [[ -f "${DEBUG_LOG}" ]]; then
+        cat "${DEBUG_LOG}"
+        rm "${DEBUG_LOG}"
+    fi
+}
 
 function run_tests {
     local exit_result
@@ -14,10 +23,10 @@ function run_tests {
 
     if [[ "$?" -ne 0 ]]; then
         exit_result=1
-        echo -e "\n${red}Unit tests result: fail${no_color}"
+        echo -e "\n${red}Tests result: fail${no_color}"
     else
         exit_result=0
-        echo -e "\n${green}Unit tests result: success${no_color}"
+        echo -e "\n${green}Tests result: success${no_color}"
     fi
 
     print_debug_info

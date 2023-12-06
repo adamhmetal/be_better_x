@@ -2,7 +2,7 @@ FROM python:3.12
 
 EXPOSE 8080
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get --no-install-recommends install -y \
     inotify-tools \
     && rm -rf /var/lib/apt/lists/*
 

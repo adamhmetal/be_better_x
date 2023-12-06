@@ -4,12 +4,40 @@ version = "1.0.0"
 description = ""
 authors = ["Adam Puza <adam.puza@gmail.com>"]
 readme = "README.md"
-packages = [{include = "be_better", from = "src"}]
+packages = [
+    { include = "be_better", from = "src" },
+    { include = "tests" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+pytest = "^7.4.3"
 
+[tool.poetry.group.dev.dependencies]
+poethepoet = "^0.24.4"
+black = "^23.11.0"
+isort = "^5.12.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poe]
+envfile = "infrastructure/cli/.env"
+
+[tool.poe.tasks]
+test = "infrastructure/cli/run_tests.sh"
+unit_testing = "infrastructure/cli/run_tests.sh -t unit -r"
+integration_testing = "infrastructure/cli/run_tests.sh -t integration -r"
+#test = { shell = "DATABASE_URL=postgresql://postgres:password@localhost:5433/postgres pytest src" }
+#test_domain = "pytest -k domain"
+#test_infrastructure = "pytest -k infrastructure"
+#test_application = "pytest -k application"
+#test_unit = "pytest -m unit"
+#test_integration = "pytest -m 'not unit'"
+#test_coverage = "pytest --cov=src --cov-report=html"
+#start = { shell = "uvicorn src.api.main:app --reload" }
+#start_cli = { shell = "cd src && python -m cli" }
+#compose_up = "docker-compose -f docker-compose.dev.yml up"
+#compose_down = "docker-compose -f docker-compose.dev.yml down"
+#compose_logs = "docker-compose -f docker-compose.dev.yml logs -f"

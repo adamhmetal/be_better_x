@@ -1,0 +1,32 @@
+version: '3'
+services:
+  app:
+    image: ${REGISTRY_URL}:${COMMIT_ID}
+    volumes:
+      - ${PWD}/tools:/vol/tools
+      - ${PWD}/repositories/tests:/vol/tests
+      - ${PWD}/repositories/src/core:/vol/src/core
+      - ${PWD}/tmp:/vol/tmp
+    privileged: true
+    links:
+      - postgres-container
+    depends_on:
+      - postgres-container
+    entrypoint: /vol/src/run.py
+    environment:
+      - LOG_LEVEL=INFO
+      - SERVICE_NAME=core
+      - STAGE=tests
+      - DISPLAY=$DISPLAY
+      - CHROME_BINARY_PATH=/usr/bin/google-chrome
+      - DBUS_SESSION_BUS_ADDRESS=/dev/null-
+
+  postgres-container:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 1s
+      timeout: 1s
+      retries: 30

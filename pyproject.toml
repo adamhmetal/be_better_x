@@ -12,6 +12,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.12"
 pytest-bdd = "^7.0.1"
+pytest-cov = "^4.1.0"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.24.4"

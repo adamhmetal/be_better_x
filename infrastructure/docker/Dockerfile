@@ -29,10 +29,11 @@ RUN groupadd -r app && \
 
 USER app
 
-RUN poetry install --no-interaction --no-ansi
-
+RUN poetry install --no-interaction --no-ansi --no-root --no-directory
 
 COPY /src /vol/app/src
 COPY /tests /vol/app/tests
+
+RUN poetry install
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]

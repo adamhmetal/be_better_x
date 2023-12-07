@@ -22,7 +22,7 @@ jobs:
       - name: Install poetry dependencies
         run: poetry install
       - name: Run tests
-        run: poetry run test
+        run: poe test
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

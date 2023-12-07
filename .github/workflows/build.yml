@@ -23,6 +23,8 @@ jobs:
         run: poetry install
       - name: Run tests
         run: poetry run poe test
+        env:
+          REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
@@ -42,7 +44,6 @@ jobs:
         run: poetry run pytest -v --cov --cov-report=xml --cov-report=html
         env:
           REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

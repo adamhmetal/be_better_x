@@ -25,6 +25,25 @@ jobs:
         run: poetry run poe test
         env:
           REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
+
+  lint:
+    name: Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+      - name: Install poetry
+        run: pip install poetry
+      - name: Install poetry dependencies
+        run: poetry install
+      - name: Run pylint
+        run: poetry run pylint src
+
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest

@@ -21,7 +21,7 @@ jobs:
         run: pip install poetry
       - name: Install poetry dependencies
         run: poetry install
-      - name: Run coverage
+      - name: Run tests
         run: poetry run poe test
   sonarcloud:
     name: SonarCloud
@@ -39,7 +39,7 @@ jobs:
       - name: Install poetry dependencies
         run: poetry install
       - name: Run coverage
-        run: poetry run pytest --cov
+        run: poetry run pytest -v --cov --cov-report=xml --cov-report=html
         env:
           REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

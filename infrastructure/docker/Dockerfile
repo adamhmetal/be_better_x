@@ -8,14 +8,15 @@ ENV PYTHONHASHSEED=random \
     PYTHONUNBUFFERED=1 \
     POETRY_CACHE_DIR="/var/cache/poetry"
 
-RUN apt-get update && apt-get --no-install-recommends install -y \
-    inotify-tools \
-    && pip3 install poetry \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && apt-get --no-install-recommends install -y inotify-tools \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip3 install poetry
 
 RUN mkdir -p /var/cache/poetry && \
     mkdir -p /vol/app/src && \
-    mkdir -p /vol/app/tests
+    mkdir -p /vol/app/tests && \
+    mkdir -p /vol/app/.ci_reports
 
 WORKDIR /vol/app
 
@@ -36,4 +37,4 @@ COPY /tests /vol/app/tests
 
 RUN poetry install
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+ENTRYPOINT ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]

@@ -13,6 +13,7 @@ packages = [
 python = "^3.12"
 pytest-bdd = "^7.0.1"
 pytest-cov = "^4.1.0"
+pylint = "^3.0.2"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.24.4"
@@ -31,15 +32,12 @@ envfile = "infrastructure/cli/.env"
 test = "infrastructure/cli/run_tests.sh"
 live_reload_test = "infrastructure/cli/run_tests.sh -r"
 coverage = "infrastructure/cli/coverage.sh"
-#test = { shell = "DATABASE_URL=postgresql://postgres:password@localhost:5433/postgres pytest src" }
-#test_domain = "pytest -k domain"
-#test_infrastructure = "pytest -k infrastructure"
-#test_application = "pytest -k application"
-#test_unit = "pytest -m unit"
-#test_integration = "pytest -m 'not unit'"
-#test_coverage = "pytest --cov=src --cov-report=html"
-#start = { shell = "uvicorn src.api.main:app --reload" }
-#start_cli = { shell = "cd src && python -m cli" }
-#compose_up = "docker-compose -f docker-compose.dev.yml up"
-#compose_down = "docker-compose -f docker-compose.dev.yml down"
-#compose_logs = "docker-compose -f docker-compose.dev.yml logs -f"
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "src",
+]
+testpaths = [
+    "unit",
+    "gherkin",
+]

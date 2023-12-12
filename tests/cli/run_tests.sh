@@ -3,6 +3,7 @@ cd /vol/app/ || exit
 
 red='\033[0;31m' # Color red
 green='\033[0;32m' # Color green
+yellow='\033[0;33m' # Color yellow
 no_color='\033[0m' # Color reset (no color)
 
 DEBUG_LOG="/tmp/debug.log"
@@ -14,12 +15,30 @@ function print_debug_info {
     fi
 }
 
+poetry install --with dev --no-root
+
+if [ "${PYCHARM_DEBUG_VERSION_TAG}" != "" ]; then
+  poetry run pip install pydevd-pycharm~=${PYCHARM_DEBUG_VERSION_TAG} > /dev/null
+fi
+
 function run_tests {
     local exit_result
 
     echo -e "= TEST RUN: $(date) ="
 
-    poetry run pytest
+    local flags=""
+    if [ "${LIVE_RELOAD}" == "true" ]; then
+        local run_dev=false
+        grep -r --include "*test*.py" "@pytest.mark.dev" /vol/app/tests | grep -v "#" > /dev/null && run_dev=true
+        if [[ "${run_dev}" == "true" ]] ; then
+            flags="-m dev"
+            echo -e "\n${yellow}Running only selected tests with @pytest.mark.dev${no_color}"
+        fi
+    else
+        flags="-p no:sugar"
+    fi
+
+    poetry run pytest ${flags}
 
     if [[ "$?" -ne 0 ]]; then
         exit_result=1

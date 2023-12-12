@@ -3,11 +3,11 @@ Main
 """
 
 
-def x() -> int:
+def x(a) -> int:
     """
     Docs
     """
-    return 1
+    return 1 + a
 
 
 class X:
@@ -33,3 +33,6 @@ class X:
         :return:
         """
         return 4
+
+
+x(1)

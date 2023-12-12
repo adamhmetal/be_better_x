@@ -1,6 +1,6 @@
 from be_better.x import x
 
 
-def test_x():
+def test_y():
     """Test x."""
-    assert x() == 1
+    assert x(1) == 2

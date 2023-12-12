@@ -30,11 +30,11 @@ RUN groupadd -r app && \
 
 USER app
 
-RUN poetry install --no-interaction --no-ansi --no-root --no-directory
+RUN poetry install --without dev --no-interaction --no-ansi --no-root --no-directory
 
 COPY /src /vol/app/src
 COPY /tests /vol/app/tests
 
-RUN poetry install
+RUN poetry install --without dev --no-root --no-interaction --no-ansi
 
 ENTRYPOINT ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]

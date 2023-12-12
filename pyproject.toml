@@ -11,15 +11,21 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.12"
-pytest-bdd = "^7.0.1"
-pytest-cov = "^4.1.0"
-pylint = "^3.0.2"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.24.4"
 black = "^23.11.0"
 isort = "^5.12.0"
+debugpy = "^1.8.0"
 pytest = "^7.4.3"
+pylint = "^3.0.2"
+pytest-bdd = "^7.0.1"
+pytest-cov = "^4.1.0"
+pytest-sugar = "^0.9.7"
+pytest-mock = "^3.12.0"
+pytest-randomly = "^3.15.0"
+pytest-clarity = "^1.0.1"
+pytest-splinter = "^3.3.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -36,8 +42,16 @@ coverage = "infrastructure/cli/coverage.sh"
 [tool.pytest.ini_options]
 pythonpath = [
     "src",
+    "tests",
+]
+addopts = [
+    "--import-mode=importlib",
 ]
 testpaths = [
-    "unit",
-    "gherkin",
+    "tests/unit",
+    "tests/functional",
 ]
+markers = [
+    "dev: mark tests to run them selectively during development"
+]
+bdd_features_base_dir = 'tests/functional/features/'
